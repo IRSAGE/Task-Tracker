@@ -1,18 +1,25 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" />
-    <Tasks @delete-task="deleteTask" @toggle-reminder="ToggleReminder" :tasks="tasks" />
+    <AddTask @add-task="AddTask" />
+    <Tasks
+      @delete-task="deleteTask"
+      @toggle-reminder="ToggleReminder"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 export default {
   name: "App",
   components: {
     Header,
     Tasks,
+    AddTask,
   },
   data() {
     return {
@@ -24,19 +31,19 @@ export default {
       {
         id: 1,
         text: "Doctors Appointment",
-        day: "March 1st at 2:30pm",
+        day: "October 1st at 2:30pm",
         reminder: true,
       },
       {
         id: 2,
         text: "Shoping",
-        day: "March 1st at 2:30pm",
+        day: "October 1st at 2:30pm",
         reminder: false,
       },
       {
         id: 3,
         text: "Go To The Gym",
-        day: "March 1st at 2:30pm",
+        day: "October 1st at 2:30pm",
         reminder: true,
       },
     ];
@@ -51,6 +58,9 @@ export default {
       this.tasks = this.tasks.map((task) =>
         task.id === id ? { ...task, reminder: !task.reminder } : task
       );
+    },
+    AddTask(task) {
+      this.tasks = [...this.tasks, task];
     },
   },
 };
